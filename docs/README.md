@@ -255,6 +255,41 @@ buildTypes {
 
 </details>
 
+## Timber
+
+> [Timber] is a logger with a small, extensible API which provides utility on top of Android's normal Log class.
+
+<details>
+<summary>Show Timber configuration</summary>
+
+Gradle _app/build.gradle_ configuration:
+
+```
+dependencies {
+  implementation 'com.jakewharton.timber:timber:5.0.1'
+}
+```
+
+Then initialize it Application class:
+
+```
+package com.handysparksoft.valenciabustracker
+
+import android.app.Application
+import timber.log.Timber
+
+class ValenciaBusTrackerApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+            Timber.d("Timber logger initialized")
+        }
+    }
+}
+```
+</details>
 
 [//]: # (Document links)
 
@@ -267,3 +302,4 @@ buildTypes {
 [Complexity rules]: <https://detekt.dev/docs/rules/complexity>
 [GitHub Actions]: <https://github.com/features/actions>
 [signingConfigs]: <https://developer.android.com/studio/publish/app-signing#secure-shared-keystore>
+[Timber]: <https://github.com/JakeWharton/timber>
