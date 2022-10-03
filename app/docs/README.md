@@ -34,8 +34,87 @@ Once the project is synced then check these ktlint gradle tasks are available:
 - `ktlintCheck`
 - `ktlintFormat
 
+## Detekt
+
+> Detekt is a static code analyzer for Kotlin.
+
+[Detekt] helps you write cleaner Kotlin code so you can focus on what matters the most building amazing software.
+
+Check [Detekt docs] for more info. Some interesting entries are:
+
+- [Configuration for Compose]
+- [Complexity rules]
+
+
+Gradle _root/build.gradle_ configuration:
+
+```
+buildscript {
+    ext {
+        ...
+        detekt_version = "1.22.0-RC1"
+    }
+}
+
+plugins {
+    ...
+    id "io.gitlab.arturbosch.detekt" version "$detekt_version"
+}
+
+allprojects {
+    apply plugin: "io.gitlab.arturbosch.detekt"
+
+    dependencies {
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
+    }
+}
+```
+
+Once the project is synced then check these detekt gradle tasks are available:
+
+- `detektGenerateConfig` (For initial detekt.yml file creation)
+- `detektBaseline` (For creating a detekt-baseline.xml if needed)
+- `detekt`
+
+### Run detekt using a Git pre-commit hook
+
+Detekt can be integrated into your development workflow by using a Git pre-commit hook. For that reason Git supports to run custom scripts automatically, when a specific action occurs.
+
+The shell script can be installed by copying the content over to `<<your-repo>>/.git/hooks/pre-commit`. This pre-commit hook needs to be executable, so you may need to change the permission (`chmod +x pre-commit`)
+
+<details>
+  <summary>Show pre-commit script</summary>
+
+```
+#!/usr/bin/env bash
+echo "Running detekt check..."
+OUTPUT="/tmp/detekt-$(date +%s)"
+./gradlew detekt > $OUTPUT
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+  cat $OUTPUT
+  rm $OUTPUT
+  echo "***********************************************"
+  echo "                 Detekt failed                 "
+  echo " Please fix the above issues before committing "
+  echo "***********************************************"
+  exit $EXIT_CODE
+fi
+rm $OUTPUT
+```
+
+**Note:** The pre-commit hook verification can be skipped for a certain commit like so:
+
+`git commit --no-verify -m "commit message"` or
+`git commit -n -m "commit message"`
+</details>
+
 [//]: # (Document links)
 
 [Ktlint]: <https://pinterest.github.io/ktlint/>
 [integrations/wrappers]: <https://pinterest.github.io/ktlint/install/integrations/>
 [jlleitschuh/ktlint-gradle]: <https://github.com/jlleitschuh/ktlint-gradle>
+[Detekt]: <https://detekt.dev/>
+[Detekt docs]: <https://detekt.dev/docs/intro/>
+[Configuration for Compose]: <https://detekt.dev/docs/introduction/compose>
+[Complexity rules]: <https://detekt.dev/docs/rules/complexity>
