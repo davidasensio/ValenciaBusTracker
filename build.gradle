@@ -4,6 +4,7 @@ buildscript {
         kotlin_version = "1.7.10"
         ktlint_version = "11.0.0"
         detekt_version = "1.22.0-RC1"
+        timber_version = "5.0.1"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
