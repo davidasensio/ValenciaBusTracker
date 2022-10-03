@@ -32,7 +32,7 @@ allprojects {
 Once the project is synced then check these ktlint gradle tasks are available:
 
 - `ktlintCheck`
-- `ktlintFormat
+- `ktlintFormat`
 
 ## Detekt
 
@@ -83,7 +83,7 @@ Detekt can be integrated into your development workflow by using a Git pre-commi
 The shell script can be installed by copying the content over to `<<your-repo>>/.git/hooks/pre-commit`. This pre-commit hook needs to be executable, so you may need to change the permission (`chmod +x pre-commit`)
 
 <details>
-  <summary>Show pre-commit script</summary>
+  <summary>Show pre-commit script running Detekt</summary>
 
 ```
 #!/usr/bin/env bash
@@ -107,6 +107,42 @@ rm $OUTPUT
 
 `git commit --no-verify -m "commit message"` or
 `git commit -n -m "commit message"`
+</details>
+
+<details>
+  <summary>Show pre-commit script running Detekt and Ktlint</summary>
+
+```
+#!/usr/bin/env bash
+echo "Running detekt check..."
+OUTPUT="/tmp/detekt-$(date +%s)"
+./gradlew detekt > $OUTPUT
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+  cat $OUTPUT
+  rm $OUTPUT
+  echo "***********************************************"
+  echo "                 Detekt failed                 "
+  echo " Please fix the above issues before committing "
+  echo "***********************************************"
+  exit $EXIT_CODE
+else
+  echo "Running ktlint check..."
+  OUTPUT="/tmp/ktlint-$(date +%s)"
+  ./gradlew ktlintCheck > $OUTPUT
+  EXIT_CODE=$?
+  if [ $EXIT_CODE -ne 0 ]; then
+    cat $OUTPUT
+    rm $OUTPUT
+    echo "***********************************************"
+    echo "                 Ktlint failed                 "
+    echo " Please fix the above issues before committing "
+    echo "***********************************************"
+    exit $EXIT_CODE
+  fi
+fi
+rm $OUTPUT
+```
 </details>
 
 
@@ -164,6 +200,62 @@ jobs:
 
 </details>
 
+
+## Signing Config
+
+> In gradle based android projects, the signing configuration could be specified in the gradle build scripts with `signingConfigs` 
+
+See official [signingConfigs] documentation.
+
+<details>
+<summary>Show `signingConfigs` example</summary>
+
+Gradle _app/build.gradle_ configuration:
+
+```
+// Create a variable called keystorePropertiesFile, and initialize it to your keystore.properties file, in the rootProject folder.
+// And load the properties. Now a release bundle could be generated like this: ./gradlew bundleRelease
+def KEYSTORE_PATH = "./keystore/keystore/keystore_pkcs12.properties"
+def keystorePropertiesFile = rootProject.file(KEYSTORE_PATH)
+def keystoreProperties = new Properties()
+try {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} catch (Exception e) {
+    println("WARNING! Keystore files not found! KeystoreProperties couldn't be loaded.\nCheck filepath: $e.message")
+}
+
+android {
+    signingConfigs {
+        config {
+            try {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            } catch (Exception e) {
+                println("WARNING! KeystoreProperties not loaded!")
+            }
+        }
+    }
+}
+
+buildTypes {
+    ...
+}
+```
+
+**Note:** You might want to ignore keystore files in `.gitignore` to avoid commiting compromised data in your repository:
+
+```
+# Keystore files
+/keystore
+*.jks
+*.keystore
+```
+
+</details>
+
+
 [//]: # (Document links)
 
 [Ktlint]: <https://pinterest.github.io/ktlint/>
@@ -174,3 +266,4 @@ jobs:
 [Configuration for Compose]: <https://detekt.dev/docs/introduction/compose>
 [Complexity rules]: <https://detekt.dev/docs/rules/complexity>
 [GitHub Actions]: <https://github.com/features/actions>
+[signingConfigs]: <https://developer.android.com/studio/publish/app-signing#secure-shared-keystore>

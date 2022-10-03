@@ -3,6 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+// Create a variable called keystorePropertiesFile, and initialize it to your keystore.properties file, in the rootProject folder.
+// And load the properties. Now a release bundle could be generated like this: ./gradlew bundleRelease
+def KEYSTORE_PATH = "./keystore/keystore_new/keystore_pkcs12.properties"
+def keystorePropertiesFile = rootProject.file(KEYSTORE_PATH)
+def keystoreProperties = new Properties()
+try {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} catch (Exception e) {
+    println("WARNING! Keystore files not found! KeystoreProperties couldn't be loaded.\nCheck filepath: $e.message")
+}
+
 android {
     namespace 'com.handysparksoft.valenciabustracker'
     compileSdk 33
@@ -20,10 +31,24 @@ android {
         }
     }
 
+    signingConfigs {
+        config {
+            try {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            } catch (Exception e) {
+                println("WARNING! KeystoreProperties not loaded!")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
