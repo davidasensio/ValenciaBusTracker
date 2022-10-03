@@ -109,6 +109,61 @@ rm $OUTPUT
 `git commit -n -m "commit message"`
 </details>
 
+
+## GitHub Actions
+
+> GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.
+
+[GitHub Actions] automates, customizes, and executes your software development workflows right in your repository.
+
+### QuickStart
+- Create a `.github/workflows` directory in your repository on GitHub if this directory does not already exist.
+- In the `.github/workflows` directory, create a file named `github-actions-android.yml`.
+- Copy the following YAML contents into the `github-actions-android.yml` file:
+
+<details>
+    <summary>Show an example of GitHubs Actions `yml` file for Android</summary>
+
+
+```
+name: Android CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck
+
+      - name: Run detekt
+        run: ./gradlew detekt
+
+      - name: Run compileDebugKotlin
+        run: ./gradlew compileDebugKotlin
+
+      - name: Run Tests
+        run: ./gradlew test
+    
+```
+
+</details>
+
 [//]: # (Document links)
 
 [Ktlint]: <https://pinterest.github.io/ktlint/>
@@ -118,3 +173,4 @@ rm $OUTPUT
 [Detekt docs]: <https://detekt.dev/docs/intro/>
 [Configuration for Compose]: <https://detekt.dev/docs/introduction/compose>
 [Complexity rules]: <https://detekt.dev/docs/rules/complexity>
+[GitHub Actions]: <https://github.com/features/actions>
