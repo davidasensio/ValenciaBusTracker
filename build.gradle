@@ -13,6 +13,8 @@ buildscript {
         ktlint_version = "11.0.0"
         detekt_version = "1.22.0-RC1"
         material3_version = "1.0.0-beta03"
+        google_play_core_version = "1.10.3"
+        google_play_core_ktx_version = "1.8.1"
         timber_version = "5.0.1"
 
         test_junit_version = "4.13.2"
