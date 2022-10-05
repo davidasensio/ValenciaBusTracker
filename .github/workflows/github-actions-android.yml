@@ -30,10 +30,9 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test
-
-  run_if_label_matches:
-    if: github.event.label.name == 'apk'
+  apk:
     name: Generate APK
+    if: contains(github.event.pull_request.labels.*.name, 'apk')
     needs: build
     runs-on: ubuntu-latest
     steps:
