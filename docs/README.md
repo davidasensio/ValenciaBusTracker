@@ -304,6 +304,75 @@ Apps that target Android 9 (API level 28) or higher and use foreground services 
 
 Apps that target Android 13 (API level 33) have notifications turned off by default so they need to be enabled either manually or by the new [notification runtime permissions]. Also, the app must request the `POST_NOTIFICATIONS` permission in the Android Manifest.
 
+### Start foreground service on Boot Completed
+
+If it's needed to start the foreground service after a system reboot this can be achieved with a Broadcast Receiver listening to `BOOT_COMPLETED` intent.
+
+<details>
+<summary>Show receiver configuration</summary>
+
+_AndroidManifest_ configuration:
+
+```
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+...
+<application>
+        ...
+        <receiver
+            android:name=".BusTrackerBootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.REBOOT" />
+            </intent-filter>
+        </receiver>
+</application>        
+        
+```
+
+_BusTrackerBootReceiver_ class:
+
+```
+class BusTrackerBootReceiver : BroadcastReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent?) {
+        val action = intent?.action
+        BusStopTrackerService.startTheService(
+            context = context,
+            notificationData = NotificationData(
+                contentTitle = context.getString(R.string.app_name),
+                contentText = context.getString(R.string.foreground_notification_on_boot_info),
+                subText = context.getString(R.string.foreground_notification_on_boot_completed)
+            )
+        )
+        Timber.d("BroadcastReceiver triggered by $action")
+    }
+}
+```
+
+**Note:** If you want to test the functionality you could do it like so:
+
+1. Add a "fake" intent action in the manifest along with the boot ones:
+
+
+```
+            <intent-filter>
+                <action android:name="com.handysparksoft.valenciabustracker.action.TEST" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.REBOOT" />
+            </intent-filter>
+
+```
+
+2. Broadcast the action via **adb tool**
+
+```
+adb shell am broadcast -a com.handysparksoft.valenciabustracker.action.TEST -p com.handysparksoft.valenciabustracker
+```
+
+        
 
 
 [//]: # (Document links)
