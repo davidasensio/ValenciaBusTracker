@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".ValenciaBusTrackerApplication"
         android:allowBackup="true"
@@ -17,7 +21,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.ValenciaBusTracker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +33,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-    </application>
 
+        <service
+            android:name=".BusStopTrackerService"
+            android:enabled="true"
+            android:exported="false"
+            android:label=""
+            android:roundIcon="@drawable/ic_launcher_foreground"
+            android:stopWithTask="false" />
+    </application>
 </manifest>

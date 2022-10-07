@@ -654,7 +654,7 @@ style:
   SafeCast:
     active: true
   SerialVersionUIDInSerializableClass:
-    active: true
+    active: false
   SpacingBetweenPackageAndImports:
     active: false
   ThrowsCount:
@@ -748,7 +748,7 @@ formatting:
     active: true
     autoCorrect: true
     indentSize: 4
-    maxLineLength: 120
+    maxLineLength: 124
   BlockCommentInitialStarAlignment:
     active: false
     autoCorrect: true
@@ -785,7 +785,7 @@ formatting:
     autoCorrect: true
     forceMultilineWhenParameterCountGreaterOrEqualThan: 2147483647
     functionBodyExpressionWrapping: 'default'
-    maxLineLength: 120
+    maxLineLength: 124
     indentSize: 4
   FunctionStartOfBodySpacing:
     active: false
@@ -807,7 +807,7 @@ formatting:
     indentSize: 4
   MaximumLineLength:
     active: true
-    maxLineLength: 120
+    maxLineLength: 124
     ignoreBackTickedIdentifier: false
   ModifierListSpacing:
     active: false
@@ -869,7 +869,7 @@ formatting:
   ParameterListWrapping:
     active: true
     autoCorrect: true
-    maxLineLength: 120
+    maxLineLength: 124
   SpacingAroundAngleBrackets:
     active: true
     autoCorrect: true
