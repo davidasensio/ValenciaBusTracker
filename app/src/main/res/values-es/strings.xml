@@ -4,4 +4,6 @@
     <string name="foreground_notification_action_1">Acción 1</string>
     <string name="foreground_notification_action_2">Acción 2</string>
     <string name="foreground_notification_action_stop">Apagar</string>
+    <string name="foreground_notification_on_boot_completed">Boot completado</string>
+    <string name="foreground_notification_on_boot_info">Esto es un ejemplo de funcionalidad \"on boot completed\" broadcast receiver. Por favor, remplázalo con tu propia funcionalidad.</string>
 </resources>
