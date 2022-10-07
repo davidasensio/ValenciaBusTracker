@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Valencia Bus Tracker</string>
+
+    <string name="foreground_notification_action_1">Acción 1</string>
+    <string name="foreground_notification_action_2">Acción 2</string>
+    <string name="foreground_notification_action_stop">Apagar</string>
+</resources>
