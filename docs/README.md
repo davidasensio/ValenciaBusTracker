@@ -8,6 +8,8 @@ Here you can find the documentation of the main stack used in this project.
 
 [Ktlint] is an open source library from Pinterest which have several [integrations/wrappers]. This project make use of the [jlleitschuh/ktlint-gradle] Gradle plugin which automatically creates check and format tasks for project Kotlin sources. It supports different kotlin plugins and Gradle build caching.
 
+<details>
+<summary>Show ktlint gradle configuration</summary>
 
 Gradle _root/build.gradle_ configuration:
 
@@ -28,6 +30,7 @@ allprojects {
     apply plugin: "org.jlleitschuh.gradle.ktlint"
 }
 ```
+</details>
 
 Once the project is synced then check these ktlint gradle tasks are available:
 
@@ -45,6 +48,8 @@ Check [Detekt docs] for more info. Some interesting entries are:
 - [Configuration for Compose]
 - [Complexity rules]
 
+<details>
+<summary>Show detekt gradle configuration</summary>
 
 Gradle _root/build.gradle_ configuration:
 
@@ -69,6 +74,7 @@ allprojects {
     }
 }
 ```
+</details>
 
 Once the project is synced then check these detekt gradle tasks are available:
 
@@ -291,6 +297,15 @@ class ValenciaBusTrackerApplication : Application() {
 ```
 </details>
 
+## Foreground services
+> [Foreground services] perform operations that are noticeable to the user. A status bar notification is shown, so that users are actively aware that your app is performing a task in the foreground and is consuming system resources.
+
+Apps that target Android 9 (API level 28) or higher and use foreground services must request the `FOREGROUND_SERVICE` permission in the Android Manifest.
+
+Apps that target Android 13 (API level 33) have notifications turned off by default so they need to be enabled either manually or by the new [notification runtime permissions]. Also, the app must request the `POST_NOTIFICATIONS` permission in the Android Manifest.
+
+
+
 [//]: # (Document links)
 
 [Ktlint]: <https://pinterest.github.io/ktlint/>
@@ -303,3 +318,5 @@ class ValenciaBusTrackerApplication : Application() {
 [GitHub Actions]: <https://github.com/features/actions>
 [signingConfigs]: <https://developer.android.com/studio/publish/app-signing#secure-shared-keystore>
 [Timber]: <https://github.com/JakeWharton/timber>
+[Foreground services]: <https://developer.android.com/guide/components/foreground-services>
+[notification runtime permissions]: <https://developer.android.com/develop/ui/views/notifications/notification-permission>
