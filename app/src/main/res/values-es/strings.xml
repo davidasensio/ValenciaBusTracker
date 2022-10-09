@@ -4,6 +4,15 @@
     <string name="foreground_notification_action_1">Acción 1</string>
     <string name="foreground_notification_action_2">Acción 2</string>
     <string name="foreground_notification_action_stop">Apagar</string>
+    <string name="foreground_notification_content_title">Título</string>
+    <string name="foreground_notification_content_text">Texto</string>
+    <string name="foreground_notification_subtext">Subtexto</string>
     <string name="foreground_notification_on_boot_completed">Boot completado</string>
     <string name="foreground_notification_on_boot_info">Esto es un ejemplo de funcionalidad \"on boot completed\" broadcast receiver. Por favor, remplázalo con tu propia funcionalidad.</string>
+
+    <string name="main_start_foreground_service">Ejecutar servicio</string>
+    <string name="show_rationale_title">Activa las notificaciones!</string>
+    <string name="show_rationale_subtitle">El permiso de notificaciones se requiere para poder estar informado con las estimaciones de tiempo en las paradas de autobuses en Valencia</string>
+    <string name="show_rationale_skip">Ignorar</string>
+    <string name="show_rationale_accept">De acuerdo</string>
 </resources>
