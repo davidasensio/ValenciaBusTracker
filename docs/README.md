@@ -302,7 +302,7 @@ class ValenciaBusTrackerApplication : Application() {
 
 Apps that target Android 9 (API level 28) or higher and use foreground services must request the `FOREGROUND_SERVICE` permission in the Android Manifest.
 
-Apps that target Android 13 (API level 33) have notifications turned off by default so they need to be enabled either manually or by the new [notification runtime permissions]. Also, the app must request the `POST_NOTIFICATIONS` permission in the Android Manifest.
+Apps that target Android 13 (API level 33) have notifications turned off by default so they need to be enabled either manually or by the new [notification runtime permission]. Also, the app must request the `POST_NOTIFICATIONS` permission in the Android Manifest.
 
 ### Start foreground service on Boot Completed
 
@@ -371,8 +371,18 @@ class BusTrackerBootReceiver : BroadcastReceiver() {
 ```
 adb shell am broadcast -a com.handysparksoft.valenciabustracker.action.TEST -p com.handysparksoft.valenciabustracker
 ```
+</details>
+## Notification runtime permission
+> Android 13 (API level 33) Tiramisú and higher supports a [notification runtime permission] for sending non-exempt (including Foreground Services (FGS)) notifications from an app: POST_NOTIFICATIONS. This change helps users focus on the notifications that are most important to them.
 
-        
+In this App a `@Composable PermissionUI` is in charge of taking care about the permissions logic. In order to test this part you might need to uninstall or revoke permissions:
+
+```
+# Adb commands for uninstall the app or revoke permissions:
+
+adb shell pm uninstall com.handysparksoft.valenciabustracker
+adb shell pm revoke com.handysparksoft.valenciabustracker android.permission.POST_NOTIFICATIONS
+```
 
 
 [//]: # (Document links)
@@ -388,4 +398,4 @@ adb shell am broadcast -a com.handysparksoft.valenciabustracker.action.TEST -p c
 [signingConfigs]: <https://developer.android.com/studio/publish/app-signing#secure-shared-keystore>
 [Timber]: <https://github.com/JakeWharton/timber>
 [Foreground services]: <https://developer.android.com/guide/components/foreground-services>
-[notification runtime permissions]: <https://developer.android.com/develop/ui/views/notifications/notification-permission>
+[notification runtime permission]: <https://developer.android.com/develop/ui/views/notifications/notification-permission>
