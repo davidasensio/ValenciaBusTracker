@@ -384,6 +384,52 @@ adb shell pm uninstall com.handysparksoft.valenciabustracker
 adb shell pm revoke com.handysparksoft.valenciabustracker android.permission.POST_NOTIFICATIONS
 ```
 
+## Back up user data with Auto Backup
+> [Auto Backup] for Apps automatically backs up a user's data from apps that target and run on Android 6.0 (API level 23) or higher. Android preserves app data by uploading it to the user's Google Drive—where it's protected by the user's Google account credentials. The backup is end-to-end encrypted on devices running Android 9 or higher using the device's pin, pattern, or password. The amount of data is limited to 25MB per user of your app.
+
+For enabling **Auto Backup** on your app for all Android API versions just enable it on _AndroidManifest.xml_ and link the correspondent `xml` files that will be used depending on the device Android version:
+
+
+- `android:allowBackup="true"`
+- `android:fullBackupContent="@xml/backup_rules"` (Needed on devices running Android 11 or lower)
+- `android:dataExtractionRules="@xml/data_extraction_rules"` (Needed on devices running Android 12 or higher)
+
+_./xml/backup\_rules.xml:_
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <include domain="sharedpref" path="." />
+</full-backup-content>
+```
+
+_./xml/data\_extraction\_rules.xml:_
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup disableIfNoEncryptionCapabilities="false">
+        <include domain="sharedpref" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="sharedpref" path="." />
+    </device-transfer>
+</data-extraction-rules>
+```
+
+**Important**: Even if your app targets Android 12 or higher, you must also specify another set of XML backup rules to support devices that run Android 11 (API level 30) or lower. So overall, both files are needed.
+
+### Test backup and restore
+
+The Auto Backup can be forced via `adb` for an specific app by package:
+
+```
+adb shell bmgr backupnow com.handysparksoft.valenciabustracker
+```
+
+Then when the app is re-installed the restored data could be checked.
+
+
 
 [//]: # (Document links)
 
@@ -399,3 +445,4 @@ adb shell pm revoke com.handysparksoft.valenciabustracker android.permission.POS
 [Timber]: <https://github.com/JakeWharton/timber>
 [Foreground services]: <https://developer.android.com/guide/components/foreground-services>
 [notification runtime permission]: <https://developer.android.com/develop/ui/views/notifications/notification-permission>
+[Auto Backup]: <https://developer.android.com/guide/topics/data/autobackup>
