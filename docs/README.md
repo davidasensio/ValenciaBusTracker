@@ -429,6 +429,56 @@ adb shell bmgr backupnow com.handysparksoft.valenciabustracker
 
 Then when the app is re-installed the restored data could be checked.
 
+## Firebase Crashlytics
+
+> Add [Firebase Crashlytics] to your app to help you track, prioritize, and fix stability issues that erode your app quality.
+
+Android Studio has a **Firebase Assistant** that can help you to configure many things such Crashlytics. So just open the assistant and follow the steps:
+
+1. Connect your app with Firbase
+2. Add Crashlytics SDK and plugin to your app
+3. Force a crash to finish the setup, just throwing a `RuntimeException("Test Crash")` 
+
+<image src="./images/firebase_assistant_crashlytics_1.png" alt="Firebase assistant" width=300 style="float: left;margin-right: 20px"/>
+<image src="./images/firebase_assistant_crashlytics_2.png" width=300 />
+
+Regarding the connection the assistant will redirect you to your [Firebase Console] and will ask you to create or link a project to your app. Once your app is linked to a Firebase project you will see that a new file has been created in your project:  `google-services.json`
+
+Regarding the **SDK** you will end up with these changes in your gradle files and that should have been added automagically:
+
+In your **root-level (project-level)** greadle file (`<project>/build.gradle`) dependencies:
+
+```
+buildscript {
+ext {
+    compose_version = "1.2.1"
+    ...
+}
+dependencies {
+    classpath 'com.google.gms:google-services:4.3.14'
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+}
+}
+```
+
+In your **module (app-level)** greadle file (`<project>/<app-module>/build.gradle`) dependencies:
+
+```
+plugins {
+    ...
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
+dependencies {
+    ...
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
+}
+    
+```
+
+
+For next steps check the [Get Started Guide with Crashlytics] documentation to learn more about it.
 
 
 [//]: # (Document links)
@@ -446,3 +496,6 @@ Then when the app is re-installed the restored data could be checked.
 [Foreground services]: <https://developer.android.com/guide/components/foreground-services>
 [notification runtime permission]: <https://developer.android.com/develop/ui/views/notifications/notification-permission>
 [Auto Backup]: <https://developer.android.com/guide/topics/data/autobackup>
+[Firebase Crashlytics]: <https://firebase.google.com/products/crashlytics>
+[Get Started Guide with Crashlytics]: <https://firebase.google.com/docs/crashlytics/get-started?hl=en&platform=android>
+[Firebase Console]: <https://console.firebase.google.com/>
