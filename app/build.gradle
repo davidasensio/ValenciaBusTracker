@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 // Create a variable called keystorePropertiesFile, and initialize it to your keystore.properties file, in the rootProject folder.
@@ -84,6 +86,9 @@ dependencies {
     implementation "com.google.android.play:core-ktx:$google_play_core_ktx_version"
 
     implementation "com.jakewharton.timber:timber:$timber_version"
+
+    implementation "com.google.firebase:firebase-crashlytics-ktx:18.3.0"
+    implementation "com.google.firebase:firebase-analytics-ktx:21.2.0"
 
     testImplementation "junit:junit:$test_junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_junit_version"
