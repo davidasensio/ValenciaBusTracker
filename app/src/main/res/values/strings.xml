@@ -16,4 +16,6 @@
     <string name="show_rationale_subtitle">Notification permissions are required in order to stay tuned with latest schedule changes at your usual bus stops in Valencia</string>
     <string name="show_rationale_skip">Skip</string>
     <string name="show_rationale_accept">I\'m in</string>
+
+    <string name="main_go_to_ads_activity">Go to Ads Activity</string>
 </resources>

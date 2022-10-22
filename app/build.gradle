@@ -90,6 +90,8 @@ dependencies {
     implementation "com.google.firebase:firebase-crashlytics-ktx:18.3.0"
     implementation "com.google.firebase:firebase-analytics-ktx:21.2.0"
 
+    implementation "com.google.android.gms:play-services-ads:21.3.0"
+
     testImplementation "junit:junit:$test_junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"

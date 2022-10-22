@@ -1,6 +1,7 @@
 package com.handysparksoft.valenciabustracker
 
 import android.app.Application
+import com.google.android.gms.ads.MobileAds
 import timber.log.Timber
 
 class ValenciaBusTrackerApplication : Application() {
@@ -11,5 +12,7 @@ class ValenciaBusTrackerApplication : Application() {
             Timber.plant(Timber.DebugTree())
             Timber.d("Timber logger initialized")
         }
+
+        MobileAds.initialize(this)
     }
 }
