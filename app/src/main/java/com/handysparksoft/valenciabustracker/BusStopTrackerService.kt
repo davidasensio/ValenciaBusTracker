@@ -1,13 +1,18 @@
 package com.handysparksoft.valenciabustracker
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.IBinder
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.WearableExtender
+import androidx.core.app.NotificationManagerCompat
 import timber.log.Timber
 import java.io.Serializable
 
@@ -38,8 +43,13 @@ class BusStopTrackerService : Service() {
             BusStopTrackerAction.Action1.name -> {
                 Timber.d("Action 1")
             }
+
             BusStopTrackerAction.Action2.name -> {
                 Timber.d("Action 2")
+            }
+
+            BusStopTrackerAction.ActionWearRefresh.name -> {
+                Timber.d("Wearable action Refresh")
             }
         }
 
@@ -47,22 +57,27 @@ class BusStopTrackerService : Service() {
         return START_STICKY
     }
 
-    @Suppress("UNCHECKED_CAST")
     private fun startForegroundServiceWithNotification(context: Context, intent: Intent) {
         (intent.extras?.get(NOTIFICATION_DATA_ARG) as? NotificationData)?.let { notificationData ->
-            val notification = getNotification(
-                context = this,
-                notificationData = notificationData
-            )
+            val onGoingNotification = getNotification(context, notificationData, true)
+            val updatedNotification = getNotification(context, notificationData, false)
 
             if (isMyServiceRunning()) {
-                (context.getSystemService(NOTIFICATION_SERVICE) as? NotificationManager)?.notify(
-                    NOTIFICATION_ID,
-                    notification
-                )
+                sendUpdatedNotification(context, updatedNotification)
             } else {
-                startForeground(NOTIFICATION_ID, notification)
+                startForeground(FOREGROUND_NOTIFICATION_ID, onGoingNotification) // Won't show up in wearables
+                sendUpdatedNotification(context, updatedNotification) // Will show up in wearables
             }
+        }
+    }
+
+    private fun sendUpdatedNotification(context: Context, notification: Notification) {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            NotificationManagerCompat.from(context).notify(UPDATED_NOTIFICATION_ID, notification)
         }
     }
 
@@ -82,7 +97,9 @@ class BusStopTrackerService : Service() {
 
     companion object {
         const val NOTIFICATION_DATA_ARG = "NotificationData"
-        private const val NOTIFICATION_ID = 1
+        private const val FOREGROUND_NOTIFICATION_ID = 1
+        private const val UPDATED_NOTIFICATION_ID = 2
+        private const val GROUP_NOTIFICATION = "GroupDefault"
         private var instance: BusStopTrackerService? = null
 
         fun startTheService(context: Context, notificationData: NotificationData, action: BusStopTrackerAction? = null) {
@@ -101,17 +118,17 @@ class BusStopTrackerService : Service() {
         private fun getNotification(
             context: Context,
             notificationData: NotificationData,
-            isOngoing: Boolean = true,
+            isOngoing: Boolean,
             isOnlyAlertOnce: Boolean = true
-        ): Notification? {
+        ): Notification {
             val notificationChannel = BusTrackerNotificationChannel(
                 name = "Bus Stop Tracker",
                 description = "Schedule changes tracker",
                 importance = NotificationManager.IMPORTANCE_HIGH
             )()
 
-            val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
-            notificationManager?.let {
+            val notificationManager = NotificationManagerCompat.from(context)
+            notificationManager.let {
                 Timber.d("Notifications are enabled: ${it.areNotificationsEnabled()}")
 
                 it.createNotificationChannel(notificationChannel)
@@ -143,9 +160,14 @@ class BusStopTrackerService : Service() {
                     .addAction(getAction1(context))
                     .addAction(getAction2(context))
                     .addAction(getActionStop(context))
+                    // Wearable Configuration
+                    .setGroup(GROUP_NOTIFICATION)
+                    .setGroupSummary(isOngoing)
+                    .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
+                    // Customized Wearable Actions (Just in case we do not want to show normal notification actions)
+                    .extend(WearableExtender().addAction(getCustomWearableAction(context)))
                     .build()
             }
-            return null
         }
 
         private fun isMyServiceRunning() = instance != null
@@ -153,7 +175,7 @@ class BusStopTrackerService : Service() {
         @Suppress("UnusedPrivateMember")
         private fun isNotificationAlreadyInPlace(context: Context): Boolean {
             (context.getSystemService(NOTIFICATION_SERVICE) as? NotificationManager)?.let { notificationManager ->
-                return notificationManager.activeNotifications.any { it.id == NOTIFICATION_ID }
+                return notificationManager.activeNotifications.any { it.id == FOREGROUND_NOTIFICATION_ID }
             }
             return false
         }
@@ -179,6 +201,12 @@ class BusStopTrackerService : Service() {
             text = context.getString(R.string.foreground_notification_action_stop)
         )
 
+        private fun getCustomWearableAction(context: Context) = getNotificationAction(
+            context = context,
+            action = BusStopTrackerAction.ActionWearRefresh,
+            text = context.getString(R.string.foreground_notification_action_wear_refresh)
+        )
+
         private fun getNotificationAction(
             context: Context,
             action: BusStopTrackerAction,
@@ -193,7 +221,7 @@ class BusStopTrackerService : Service() {
     }
 }
 
-enum class BusStopTrackerAction { Action1, Action2, ActionStop }
+enum class BusStopTrackerAction { Action1, Action2, ActionStop, ActionWearRefresh }
 
 data class NotificationData(
     val contentTitle: String,

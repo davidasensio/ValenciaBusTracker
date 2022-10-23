@@ -4,6 +4,7 @@
     <string name="foreground_notification_action_1">Acción 1</string>
     <string name="foreground_notification_action_2">Acción 2</string>
     <string name="foreground_notification_action_stop">Apagar</string>
+    <string name="foreground_notification_action_wear_refresh">Refrescar</string>
     <string name="foreground_notification_content_title">Título</string>
     <string name="foreground_notification_content_text">Texto</string>
     <string name="foreground_notification_subtext">Subtexto</string>
