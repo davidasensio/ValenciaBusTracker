@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "39736171800",
+    "project_id": "valenciabustracker",
+    "storage_bucket": "valenciabustracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39736171800:android:cef19e7b97e5cdbdec526d",
+        "android_client_info": {
+          "package_name": "com.handysparksoft.valenciabustracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39736171800-srj6qrr8nbn9peejcrs75dbskuh5tg58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu3GXBmv3mu00-kXyGVl5qEGa8A20_7nw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39736171800-srj6qrr8nbn9peejcrs75dbskuh5tg58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
