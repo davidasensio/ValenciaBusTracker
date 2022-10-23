@@ -2,6 +2,7 @@ package com.handysparksoft.valenciabustracker
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,7 +28,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -118,29 +118,37 @@ fun ContentScreen(onStartServiceClick: () -> Unit) {
     var isClickCounting by remember { mutableStateOf(prefs.isCountingClicks) }
 
     Column(
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
-        Button(onClick = {
-            onStartServiceClick()
-            if (isClickCounting) {
-                clickCounter = ++prefs.numberOfClicks
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .weight(1f)
+                .padding(20.dp)
+        ) {
+            Button(onClick = {
+                onStartServiceClick()
+                if (isClickCounting) {
+                    clickCounter = ++prefs.numberOfClicks
+                }
+            }) {
+                Text(text = stringResource(id = R.string.main_start_foreground_service))
             }
-        }) {
-            Text(text = stringResource(id = R.string.main_start_foreground_service))
+            Spacer(modifier = Modifier.height(36.dp))
+            PrefsSection(
+                clickCounter = clickCounter,
+                isClickCounting = isClickCounting,
+                onIsClickCountingChangeValue = { isCounting ->
+                    prefs.isCountingClicks = isCounting
+                    isClickCounting = isCounting
+                }
+            )
+            Spacer(modifier = Modifier.height(36.dp))
+            GoToAdsSection(context = context)
         }
-        Spacer(modifier = Modifier.height(36.dp))
-        PrefsSection(
-            clickCounter = clickCounter,
-            isClickCounting = isClickCounting,
-            onIsClickCountingChangeValue = { isCounting ->
-                prefs.isCountingClicks = isCounting
-                isClickCounting = isCounting
-            }
-        )
     }
 }
 
@@ -157,7 +165,7 @@ fun PrefsSection(
             Text(
                 text = "Preferences",
                 style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.align(CenterHorizontally)
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Spacer(modifier = Modifier.height(8.dp))
             Row(
@@ -181,6 +189,15 @@ fun PrefsSection(
     }
 }
 
+@Composable
+private fun GoToAdsSection(context: Context) {
+    Button(
+        onClick = { goToAdsActivity(context) }
+    ) {
+        Text(text = stringResource(R.string.main_go_to_ads_activity))
+    }
+}
+
 private fun startService(context: Context) {
     BusStopTrackerService.startTheService(
         context,
@@ -190,6 +207,10 @@ private fun startService(context: Context) {
             subText = context.getString(R.string.foreground_notification_subtext)
         )
     )
+}
+
+private fun goToAdsActivity(context: Context) {
+    context.startActivity(Intent(context, AdActivity::class.java))
 }
 
 @Preview(showBackground = true)

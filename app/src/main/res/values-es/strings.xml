@@ -16,4 +16,6 @@
     <string name="show_rationale_subtitle">El permiso de notificaciones se requiere para poder estar informado con las estimaciones de tiempo en las paradas de autobuses en Valencia</string>
     <string name="show_rationale_skip">Ignorar</string>
     <string name="show_rationale_accept">De acuerdo</string>
+
+    <string name="main_go_to_ads_activity">Ir a la activity de Anuncios</string>
 </resources>

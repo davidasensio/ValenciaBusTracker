@@ -480,6 +480,13 @@ dependencies {
 
 For next steps check the [Get Started Guide with Crashlytics] documentation to learn more about it.
 
+## AdMob Ads
+
+> Integrating the Google Mobile Ads SDK into an app is the first step toward displaying ads and earning revenue. Once you've integrated the SDK, you can choose an ad format (such as native or rewarded video) and follow the steps to implement it. Check the quick [AdMob Quick Start Guide] for more info.
+
+These are the different types of ads you can add to your app:
+
+<image src="./images/admob_ad_types.png" alt="AdMob Ad Types" width=800 />
 
 [//]: # (Document links)
 
@@ -499,3 +506,4 @@ For next steps check the [Get Started Guide with Crashlytics] documentation to l
 [Firebase Crashlytics]: <https://firebase.google.com/products/crashlytics>
 [Get Started Guide with Crashlytics]: <https://firebase.google.com/docs/crashlytics/get-started?hl=en&platform=android>
 [Firebase Console]: <https://console.firebase.google.com/>
+[AdMob Quick Start Guide]: <https://developers.google.com/admob/android/quick-start>
