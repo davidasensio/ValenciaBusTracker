@@ -480,6 +480,29 @@ dependencies {
 
 For next steps check the [Get Started Guide with Crashlytics] documentation to learn more about it.
 
+## Compose Bill of Materials (BOM)
+
+> A [BOM] is a Maven module that declares a set of libraries with their versions. It will greatly simplify the way you define Compose library versions in your Gradle dependencies block, especially now that Google moved the various Jetpack Compose libraries to independent versioning schemes.
+
+```
+dependencies {
+    // Import the Compose BOM
+    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    
+    // Declare dependencies for the desired Compose libraries without versions
+    implementation 'androidx.compose.foundation:foundation'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    ...
+}
+``` 
+
+Instead of defining each version separately, which can become cumbersome and prone to errors when library versions start to differ, you now only need to define one BOM version and all Compose library versions will be extracted from that. Google will publish a new version of the BOM every time a Compose artifact has a new **stable release**, so moving from stable release to stable release is going to be much simpler.
+
+Note that you can still choose to define your dependencies using hard-coded versions. The BOM is added as a useful way to simplify dependencies and make upgrades easier.
+
+To find out which Compose library versions are mapped to a specific BOM version, check out the [BOM to library version mapping].
+
+
 ## AdMob Ads
 
 > Integrating the Google Mobile Ads SDK into an app is the first step toward displaying ads and earning revenue. Once you've integrated the SDK, you can choose an ad format (such as native or rewarded video) and follow the steps to implement it. Check the quick [AdMob Quick Start Guide] for more info.
@@ -507,3 +530,5 @@ These are the different types of ads you can add to your app:
 [Get Started Guide with Crashlytics]: <https://firebase.google.com/docs/crashlytics/get-started?hl=en&platform=android>
 [Firebase Console]: <https://console.firebase.google.com/>
 [AdMob Quick Start Guide]: <https://developers.google.com/admob/android/quick-start>
+[BOM]: <https://developer.android.com/jetpack/compose/setup#using-the-bom>
+[BOM to library version mapping]: <https://developer.android.com/jetpack/compose/setup#bom-version-mapping>
