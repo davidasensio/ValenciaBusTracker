@@ -31,13 +31,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.handysparksoft.valenciabustracker.framework.InAppReviewManager
 import com.handysparksoft.valenciabustracker.framework.Prefs
 import com.handysparksoft.valenciabustracker.framework.permission.PermissionAction
 import com.handysparksoft.valenciabustracker.framework.permission.PermissionUI
+import com.handysparksoft.valenciabustracker.ui.CombinedPreviews
 import com.handysparksoft.valenciabustracker.ui.theme.ValenciaBusTrackerTheme
 import timber.log.Timber
 import kotlin.random.Random
@@ -49,11 +49,7 @@ class MainActivity : ComponentActivity() {
         startInAppReviewFlow(this)
 
         setContent {
-            ValenciaBusTrackerTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    MainScreen()
-                }
-            }
+            ValenciaBusTrackerApp()
         }
     }
 
@@ -68,6 +64,15 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val InnAppReviewProbabilityLimit = 3
+    }
+}
+
+@Composable
+fun ValenciaBusTrackerApp() {
+    ValenciaBusTrackerTheme {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+            MainScreen()
+        }
     }
 }
 
@@ -99,6 +104,7 @@ fun PostNotificationPermissionUI() {
                         Timber.d("PermissionAction granted")
                         startService(context)
                     }
+
                     PermissionAction.Denied -> {
                         Timber.d("PermissionAction denied")
                     }
@@ -213,10 +219,8 @@ private fun goToAdsActivity(context: Context) {
     context.startActivity(Intent(context, AdActivity::class.java))
 }
 
-@Preview(showBackground = true)
+@CombinedPreviews
 @Composable
 internal fun DefaultPreview() {
-    ValenciaBusTrackerTheme {
-        MainScreen()
-    }
+    ValenciaBusTrackerApp()
 }
