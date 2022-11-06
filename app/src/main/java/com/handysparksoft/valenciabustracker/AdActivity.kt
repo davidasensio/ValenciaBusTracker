@@ -26,6 +26,7 @@ import com.handysparksoft.valenciabustracker.framework.AdMobAd.AdMobType.AdInter
 import com.handysparksoft.valenciabustracker.framework.AdMobAd.AdMobType.AdInterstitialVideo
 import com.handysparksoft.valenciabustracker.framework.AdMobAd.AdMobType.AdRewardedInterstitial
 import com.handysparksoft.valenciabustracker.framework.AdMobAd.AdMobType.AdRewardedOptIn
+import com.handysparksoft.valenciabustracker.ui.CombinedPreviews
 import com.handysparksoft.valenciabustracker.ui.theme.ValenciaBusTrackerTheme
 import timber.log.Timber
 
@@ -53,29 +54,31 @@ fun AdScreen() {
     val adRewardedInterstitial = AdRewardedInterstitial(stringResource(id = R.string.admob_ad_rewarded_optin_1_id))
     val adRewardedOptIn = AdRewardedOptIn(stringResource(id = R.string.admob_ad_rewarded_interstitial_1_id))
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Surface {
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.fillMaxSize()
         ) {
-            Text(
-                text = "Choose a sample Ad",
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(vertical = 16.dp)
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "Choose a sample Ad",
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+                LoadAdInterstitialButton(adInterstitial)
+                LoadAdInterstitialVideoButton(adInterstitialVideo)
+                LoadAdRewardedInterstitialButton(adRewardedInterstitial)
+                LoadAdRewardedOptInButton(adRewardedOptIn)
+            }
+            AdMobAd.AdBannerViewCompose(
+                adId = adBanner1.getId(),
+                modifier = Modifier.defaultMinSize(minHeight = 50.dp)
             )
-            LoadAdInterstitialButton(adInterstitial)
-            LoadAdInterstitialVideoButton(adInterstitialVideo)
-            LoadAdRewardedInterstitialButton(adRewardedInterstitial)
-            LoadAdRewardedOptInButton(adRewardedOptIn)
         }
-        AdMobAd.AdBannerViewCompose(
-            adId = adBanner1.getId(),
-            modifier = Modifier.defaultMinSize(minHeight = 50.dp)
-        )
     }
 }
 
@@ -140,7 +143,7 @@ private fun LoadAdButton(ad: AdMobAd.AdMobType, onClick: (activity: Activity) ->
     }
 }
 
-@Preview(showBackground = true)
+@CombinedPreviews
 @Composable
 fun AdScreenPreview() {
     ValenciaBusTrackerTheme {

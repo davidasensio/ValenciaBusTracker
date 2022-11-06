@@ -511,6 +511,35 @@ These are the different types of ads you can add to your app:
 
 <image src="./images/admob_ad_types.png" alt="AdMob Ad Types" width=800 />
 
+## Multipreview Annotations
+
+> With [multipreview annotations], you can define an annotation class that itself has multiple @Preview annotations with different configurations. Adding this annotation to a composable function will automatically render all the different previews at once. For example, you can use this annotation to preview multiple devices, font sizes, or themes at the same time without repeating those definitions for every single composable.
+
+You can use them like this:
+
+```
+@Preview(name = "1. Light Theme", group = "themes", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "2. Dark Theme", group = "themes", uiMode = Configuration.UI_MODE_NIGHT_YES)
+annotation class ThemePreviews
+
+@Preview(name = "3. large font", group = "font scales", fontScale = 1.5f)
+@Preview(name = "4. small font", group = "font scales", fontScale = 0.5f)
+annotation class FontScalePreviews
+
+...
+
+@ThemePreviews
+@FontScalePreviews
+@Composable
+fun HelloWorldPreview() {
+    Text("Hello World")
+}
+```
+
+**Note:** notice that the number prefix in names (`1.` `2.` etc) is for the preview to show the desired previews in such order otherwise the previews will be rendered alphabetically.
+
+<image src="./images/multipreviews.png" width=600 />
+
 [//]: # (Document links)
 
 [Ktlint]: <https://pinterest.github.io/ktlint/>
@@ -532,3 +561,4 @@ These are the different types of ads you can add to your app:
 [AdMob Quick Start Guide]: <https://developers.google.com/admob/android/quick-start>
 [BOM]: <https://developer.android.com/jetpack/compose/setup#using-the-bom>
 [BOM to library version mapping]: <https://developer.android.com/jetpack/compose/setup#bom-version-mapping>
+[multipreview annotations]: <https://developer.android.com/jetpack/compose/tooling#preview-multipreview>
