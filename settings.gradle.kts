@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "ValenciaBusTracker"
-include ':app'
+include(":app")
