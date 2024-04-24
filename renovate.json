@@ -1,0 +1,34 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "prHeader": "Dependency update - Renavate Bot",
+  "labels": ["dependency update"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "androidx.compose.compiler:compiler",
+        "org.jetbrains.kotlin.*",
+        "com.google.devtools.ksp"
+      ],
+      "groupName": "kotlin"
+    },
+    {
+      "matchPackagePatterns": [
+        "com.android.tools.*"
+      ],
+      "groupName": "agp"
+    },
+    {
+      "matchPackagePatterns": [".*compose.*"],
+      "addLabels": ["compose"]
+    },
+    {
+      "matchPackagePatterns": [
+        "rinchsan/renovate-config-validator*", "actions/checkout*"
+      ],
+      "groupName": "Renovate config"
+    }
+  ]
+}
