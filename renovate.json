@@ -16,6 +16,16 @@
     },
     {
       "matchPackagePatterns": [
+        "com.android.tools.*"
+      ],
+      "groupName": "agp"
+    },
+    {
+      "matchPackagePatterns": [".*compose.*"],
+      "addLabels": ["compose"]
+    },
+    {
+      "matchPackagePatterns": [
         "rinchsan/renovate-config-validator*", "actions/checkout*"
       ],
       "groupName": "Renovate config"
