@@ -5,7 +5,7 @@ kotlin = "1.9.0"
 ktlintVersion = "11.0.0"
 detektVersion = "1.23.5"
 
-coreKtx = "1.12.0"
+coreKtx = "1.13.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 androidxTestExtJunit = "1.1.5"
