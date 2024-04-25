@@ -29,6 +29,16 @@
         "rinchsan/renovate-config-validator*", "actions/checkout*"
       ],
       "groupName": "Renovate config"
+    },
+    {
+      "extends": ["config:recommended"],
+      "packageRules": [
+        {
+          "matchPackagePatterns": ["*"],
+          "groupName": "all dependencies",
+          "groupSlug": "all"
+        }
+      ]
     }
   ]
 }
