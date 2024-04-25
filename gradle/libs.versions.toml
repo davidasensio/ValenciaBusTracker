@@ -3,7 +3,7 @@ agp = "8.3.0"
 kotlin = "1.9.0"
 
 ktlintVersion = "11.0.0"
-detektVersion = "1.23.5"
+detektVersion = "1.23.6"
 
 coreKtx = "1.12.0"
 junit = "4.13.2"
