@@ -22,6 +22,12 @@
       "groupName": "agp"
     },
     {
+      "matchPackagePatterns": [
+        "gradle"
+      ],
+      "groupName": "gradle"
+    },
+    {
       "matchPackagePatterns": [".*compose.*"],
       "addLabels": ["compose"]
     },
