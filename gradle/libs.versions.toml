@@ -20,7 +20,7 @@ googleServices = "4.4.1"
 crashlyticsPluginVersion = "2.9.9"
 
 timber = "5.0.1"
-ads = "22.0.0"
+ads = "22.6.0"
 review = "2.0.1"
 
 
