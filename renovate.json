@@ -8,6 +8,19 @@
   "automerge": false,
   "packageRules": [
     {
+      "excludePackageNames": ["gradle"],
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": false
+    },
+    {
       "matchPackagePatterns": [
         "androidx.compose.compiler:compiler",
         "org.jetbrains.kotlin.*",
@@ -36,18 +49,6 @@
         "rinchsan/renovate-config-validator*", "actions/checkout*"
       ],
       "groupName": "Renovate config"
-    },
-    {
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch",
-      "matchPackagePatterns": [
-        "*"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "automerge": false
     }
   ]
 }
