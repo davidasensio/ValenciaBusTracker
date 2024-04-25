@@ -35,6 +35,7 @@
       "packageRules": [
         {
           "matchPackagePatterns": ["*"],
+          "updateTypes": ["minor", "patch"],
           "groupName": "all dependencies",
           "groupSlug": "all"
         }
