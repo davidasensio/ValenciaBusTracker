@@ -5,6 +5,7 @@
   ],
   "prHeader": "Dependency update - Renavate Bot",
   "labels": ["dependency update"],
+  "automerge": false,
   "packageRules": [
     {
       "matchPackagePatterns": [
@@ -31,15 +32,9 @@
       "groupName": "Renovate config"
     },
     {
-      "extends": ["config:recommended"],
-      "automerge": false,
-      "packageRules": [
-        {
-          "matchPackagePatterns": ["*"],
-          "groupName": "all dependencies",
-          "groupSlug": "all"
-        }
-      ]
+      "groupName": "All other packages",
+      "packagePatterns": [".*"],
+      "extends": [":all"]
     }
   ]
 }
