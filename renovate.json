@@ -30,6 +30,18 @@
         "rinchsan/renovate-config-validator*", "actions/checkout*"
       ],
       "groupName": "Renovate config"
+    },
+    {
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": false
     }
   ]
 }
