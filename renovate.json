@@ -5,7 +5,24 @@
   ],
   "prHeader": "Dependency update - Renavate Bot",
   "labels": ["dependency update"],
+  "automerge": false,
+  "prConcurrentLimit": 5,
+  "timezone": "Europe/Berlin",
+  "schedule": ["after 5pm every weekday"],
   "packageRules": [
+    { 
+      "excludePackageNames": ["gradle"],
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": false
+    },
     {
       "matchPackagePatterns": [
         "androidx.compose.compiler:compiler",
