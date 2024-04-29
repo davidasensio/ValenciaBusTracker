@@ -153,7 +153,7 @@ object AdMobAd {
                     .padding(horizontal = 2.dp, vertical = 6.dp),
                 textAlign = TextAlign.Center,
                 color = Color.White,
-                text = "Ad Place",
+                text = "Ad Place"
             )
         } else {
             AndroidView(modifier = modifier, factory = { context ->
