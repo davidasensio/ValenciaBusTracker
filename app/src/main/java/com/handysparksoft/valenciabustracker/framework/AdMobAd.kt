@@ -50,15 +50,19 @@ object AdMobAd {
         data class AdNativeVideo(val adId: String) : AdMobType(ADMOB_AD_TEST_NATIVE_VIDEO_ID)
         data class AdAppOpen(val adId: String) : AdMobType(ADMOB_AD_TEST_APP_OPEN_ID)
 
-        fun getId(): String = if (BuildConfig.DEBUG) testAdId else when (this) {
-            is AdBanner -> adId
-            is AdInterstitial -> adId
-            is AdInterstitialVideo -> adId
-            is AdRewardedInterstitial -> adId
-            is AdRewardedOptIn -> adId
-            is AdNative -> adId
-            is AdNativeVideo -> adId
-            is AdAppOpen -> adId
+        fun getId(): String = if (BuildConfig.DEBUG) {
+            testAdId
+        } else {
+            when (this) {
+                is AdBanner -> adId
+                is AdInterstitial -> adId
+                is AdInterstitialVideo -> adId
+                is AdRewardedInterstitial -> adId
+                is AdRewardedOptIn -> adId
+                is AdNative -> adId
+                is AdNativeVideo -> adId
+                is AdAppOpen -> adId
+            }
         }
     }
 
