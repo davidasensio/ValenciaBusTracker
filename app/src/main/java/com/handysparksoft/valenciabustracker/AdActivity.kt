@@ -145,7 +145,7 @@ private fun LoadAdButton(ad: AdMobAd.AdMobType, onClick: (activity: Activity) ->
 
 @CombinedPreviews
 @Composable
-fun AdScreenPreview() {
+private fun AdScreenPreview() {
     ValenciaBusTrackerTheme {
         AdScreen()
     }
@@ -153,7 +153,7 @@ fun AdScreenPreview() {
 
 @Preview
 @Composable
-fun AdViewComposePreview() {
+private fun AdViewComposePreview() {
     val adBannerTestId = AdMobAd.ADMOB_AD_TEST_INTERSTITIAL_ID
     AdMobAd.AdBannerViewCompose(adId = adBannerTestId)
 }

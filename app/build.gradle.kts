@@ -72,6 +72,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.13"
+        lint.disable += "ComposeModifierMissing"
     }
     packaging {
         resources {
@@ -102,6 +103,8 @@ dependencies {
 
     implementation(libs.review)
     implementation(libs.review.ktx)
+
+    lintChecks(libs.compose.lint)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
