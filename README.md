@@ -18,13 +18,21 @@ Main features:
 - Jetpack Compose
 - Ktlint
 - Detekt
+- Compose Lint
 - Pre-commit hook script
 - Github Actions (CI)
+- Renovate Bot
+- kotlin Script DSL (KTS)
 - Foreground Notifications
+- In App review manager
+- Preferences with Auto Backup
+- Ads
+- Crashlytics and Analytics
+- 
 - ...
 
 ## Documentation
 You can find the technical documentation in the [`/docs/README.md`](docs/README.md) file.
 
 ## Author
-David Asensio - October 2022
+David Asensio | October 2022 - May 2024

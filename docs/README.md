@@ -480,7 +480,7 @@ dependencies {
 
 For next steps check the [Get Started Guide with Crashlytics] documentation to learn more about it.
 
-## Compose Bill of Materials (BOM)
+## Compose Bill of Materials (BOM)
 
 > A [BOM] is a Maven module that declares a set of libraries with their versions. It will greatly simplify the way you define Compose library versions in your Gradle dependencies block, especially now that Google moved the various Jetpack Compose libraries to independent versioning schemes.
 
@@ -511,7 +511,7 @@ These are the different types of ads you can add to your app:
 
 <image src="./images/admob_ad_types.png" alt="AdMob Ad Types" width=800 />
 
-## Multipreview Annotations
+## Multipreview Annotations
 
 > With [multipreview annotations], you can define an annotation class that itself has multiple @Preview annotations with different configurations. Adding this annotation to a composable function will automatically render all the different previews at once. For example, you can use this annotation to preview multiple devices, font sizes, or themes at the same time without repeating those definitions for every single composable.
 
@@ -540,6 +540,44 @@ fun HelloWorldPreview() {
 
 <image src="./images/multipreviews.png" width=600 />
 
+## Compose Lint Checks
+
+[Compose Lints] is a static analysis tool for Kotlin code that helps you write better Compose UI code. It provides a set of lint rules that check for common mistakes and bad practices in Compose UI code.
+Benefits:
+ - Improves the correctness of your Compose UI code.
+ - Improves the performance of your Compose UI code.
+ - Improves the readability and maintainability of your Compose UI code.
+
+**Usage:**
+Just add the dependency to the **lintChecks** configuration. In an android project, no gradle task execution is needed, it works out of the box:
+
+_libs.versions.toml:_
+```kotlin
+
+composeLint = "1.3.1"
+compose-lint = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "composeLint" }
+```
+
+_build.gradle.kts:_
+```kotlin
+dependencies {
+    lintChecks(libs.compose.lint)
+}
+```
+
+Example Lint Rule:
+To check it, you can simply break the rule  `Don’t re-use modifiers` by reusing a passed modifier in several places and then `ComposeModifierReused` will be reported.
+
+Suppressing Lint Rules:
+To suppress a lint rule, you can either use the `@Suppress` annotation in the code or add an exception inside composeOptions like this:
+
+```kotlin
+composeOptions {
+    kotlinCompilerExtensionVersion = "1.5.13"
+    lint.disable += "ComposeModifierMissing"
+}
+```
+
 [//]: # (Document links)
 
 [Ktlint]: <https://pinterest.github.io/ktlint/>
@@ -562,3 +600,4 @@ fun HelloWorldPreview() {
 [BOM]: <https://developer.android.com/jetpack/compose/setup#using-the-bom>
 [BOM to library version mapping]: <https://developer.android.com/jetpack/compose/setup#bom-version-mapping>
 [multipreview annotations]: <https://developer.android.com/jetpack/compose/tooling#preview-multipreview>
+[Compose Lints]: <https://github.com/slackhq/compose-lints>
