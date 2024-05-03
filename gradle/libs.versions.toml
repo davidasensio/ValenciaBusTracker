@@ -22,6 +22,7 @@ crashlyticsPluginVersion = "3.0.0"
 timber = "5.0.1"
 ads = "22.6.0"
 review = "2.0.1"
+composeLint = "1.3.1"
 
 
 [libraries]
@@ -52,6 +53,9 @@ review = { module = "com.google.android.play:review", version.ref = "review" }
 review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "review" }
 ads = { module = "com.google.android.gms:play-services-ads", version.ref = "ads" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+# Lint checks
+compose-lint = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "composeLint" }
 
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
