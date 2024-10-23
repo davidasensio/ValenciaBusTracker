@@ -1,28 +1,28 @@
 [versions]
-agp = "8.4.0"
+agp = "8.7.1"
 kotlin = "1.9.23"
 
-ktlintVersion = "12.1.0"
-detektVersion = "1.23.6"
+ktlintVersion = "12.1.1"
+detektVersion = "1.23.7"
 
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
-androidxTestExtJunit = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.7.0"
-activityCompose = "1.9.0"
-composeBom = "2024.05.00"
+androidxTestExtJunit = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.6"
+activityCompose = "1.9.3"
+composeBom = "2024.10.00"
 
-firebaseBom = "33.0.0"
+firebaseBom = "33.5.1"
 
-googleServices = "4.4.1"
-crashlyticsPluginVersion = "3.0.0"
+googleServices = "4.4.2"
+crashlyticsPluginVersion = "3.0.2"
 
 timber = "5.0.1"
 ads = "22.6.0"
-review = "2.0.1"
-composeLint = "1.3.1"
+review = "2.0.2"
+composeLint = "1.4.2"
 
 
 [libraries]
